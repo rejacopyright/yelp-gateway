@@ -13,6 +13,9 @@ const router = express.Router()
 
 router.options('*', cors(corsOptions))
 
+router.get('/', cors(corsOptions), async (req, res, next) => {
+  res.send('API by Reja Jamil')
+})
 router.get('/search', cors(corsOptions), async (req, res, next) => {
   axios({
     method: 'get',
@@ -68,7 +71,7 @@ router.get('/:business_id/reviews', cors(corsOptions), async (req, res, next) =>
     })
 })
 
-api.use('/api/', router)
+api.use('/', router)
 
 // const PORT = process.env.PORT || 3001
 // api.listen(PORT, () => console.log(`listening on ${PORT}`))

@@ -1,17 +1,19 @@
 const express = require('express')
+const serverless = require('serverless-http')
 const cors = require('cors')
 const corsOptions = require('./cors')
 const axios = require('./axios')
 
-const app = express()
+const api = express()
+const router = express.Router()
 
-app.use((req, res, next) => {
-  next()
-})
+// api.use((req, res, next) => {
+//   next()
+// })
 
-app.options('*', cors(corsOptions))
+router.options('*', cors(corsOptions))
 
-app.get('/search', cors(corsOptions), async (req, res, next) => {
+router.get('/search', cors(corsOptions), async (req, res, next) => {
   axios({
     method: 'get',
     url: `search`,
@@ -30,7 +32,7 @@ app.get('/search', cors(corsOptions), async (req, res, next) => {
     })
 })
 
-app.get('/:business_id', cors(corsOptions), async (req, res, next) => {
+router.get('/:business_id', cors(corsOptions), async (req, res, next) => {
   axios({
     method: 'get',
     url: `${req.params.business_id}`,
@@ -48,7 +50,7 @@ app.get('/:business_id', cors(corsOptions), async (req, res, next) => {
     })
 })
 
-app.get('/:business_id/reviews', cors(corsOptions), async (req, res, next) => {
+router.get('/:business_id/reviews', cors(corsOptions), async (req, res, next) => {
   axios({
     method: 'get',
     url: `${req.params.business_id}/reviews`,
@@ -66,5 +68,8 @@ app.get('/:business_id/reviews', cors(corsOptions), async (req, res, next) => {
     })
 })
 
-const PORT = process.env.PORT || 3001
-app.listen(PORT, () => console.log(`listening on ${PORT}`))
+api.use('/', router)
+
+// const PORT = process.env.PORT || 3001
+// api.listen(PORT, () => console.log(`listening on ${PORT}`))
+module.exports.handler = serverless(api)

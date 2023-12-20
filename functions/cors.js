@@ -1,5 +1,5 @@
-const allowedOrigins = ['http://localhost:3000', 'http://yourapp.com']
-module.exports = {
+const allowedOrigins = ['http://localhost:3000', 'https://62teknologi.netlify.app']
+const options = {
   origin: (origin, callback) => {
     if (!origin) return callback(null, true)
     if (allowedOrigins.indexOf(origin) === -1) {
@@ -11,3 +11,5 @@ module.exports = {
   },
   optionsSuccessStatus: 200,
 }
+
+module.exports = options

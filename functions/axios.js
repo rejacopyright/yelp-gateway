@@ -1,4 +1,5 @@
 const ax = require('axios')
+
 const axios = ax.create({
   baseURL: `https://api.yelp.com/v3/businesses`,
   withCredentials: false,

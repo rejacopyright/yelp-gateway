@@ -68,7 +68,7 @@ router.get('/:business_id/reviews', cors(corsOptions), async (req, res, next) =>
     })
 })
 
-api.use('/', router)
+api.use('/api/', router)
 
 // const PORT = process.env.PORT || 3001
 // api.listen(PORT, () => console.log(`listening on ${PORT}`))
